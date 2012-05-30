@@ -5,6 +5,7 @@ Release:    13
 Group:      TO_BE/FILLED_IN
 License:    LGPLv2+
 Source0:    %{name}-%{version}.tar.gz
+Source1001: packaging/alsa-scenario.manifest 
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires:  pkgconfig(alsa)
@@ -29,6 +30,7 @@ ALSA Scenario package (devel)
 
 
 %build
+cp %{SOURCE1001} .
 cp -f /usr/share/libtool/config/config.guess %{_builddir}/%{name}-%{version}/
 cp -f /usr/share/libtool/config/config.sub %{_builddir}/%{name}-%{version}/
 %configure --disable-static
@@ -50,10 +52,12 @@ rm -rf %{buildroot}
 
 
 %files
+%manifest alsa-scenario.manifest
 /usr/lib/libascenario-0.2.so.*
 
 
 %files devel
+%manifest alsa-scenario.manifest
 /usr/include/alsa/*.h
 /usr/lib/libascenario.so
 /usr/lib/pkgconfig/libascenario.pc
