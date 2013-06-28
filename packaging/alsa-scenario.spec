@@ -5,6 +5,7 @@ Release:    13
 Group:      Multimedia/Audio
 License:    LGPLv2+
 Source0:    %{name}-%{version}.tar.gz
+Source1001: 	alsa-scenario.manifest
 BuildRequires:  pkgconfig(alsa)
 
 %description
@@ -22,6 +23,7 @@ ALSA Scenario package (devel)
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 
 %build
@@ -38,11 +40,12 @@ make %{?jobs:-j%jobs}
 %postun -p /sbin/ldconfig
 
 %files
-%manifest alsa-scenario.manifest
+%manifest %{name}.manifest
 %{_libdir}/libascenario-0.2.so.*
 
 
 %files devel
+%manifest %{name}.manifest
 %{_includedir}/alsa/*.h
 %{_libdir}/libascenario.so
 %{_libdir}/pkgconfig/libascenario.pc
