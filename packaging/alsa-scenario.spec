@@ -7,6 +7,7 @@ License:    LGPLv2+
 Source0:    %{name}-%{version}.tar.gz
 Source1001: 	alsa-scenario.manifest
 BuildRequires:  pkgconfig(alsa)
+BuildRequires:    pkgconfig
 
 %description
 ALSA Scenario package
@@ -27,10 +28,10 @@ cp %{SOURCE1001} .
 
 
 %build
-cp -f /usr/share/libtool/config/config.guess %{_builddir}/%{name}-%{version}/
-cp -f /usr/share/libtool/config/config.sub %{_builddir}/%{name}-%{version}/
-%configure --disable-static
-make %{?jobs:-j%jobs}
+cp -f %{_datadir}/libtool/config/config.guess %{_builddir}/%{name}-%{version}/
+cp -f %{_datadir}/libtool/config/config.sub %{_builddir}/%{name}-%{version}/
+%reconfigure --disable-static
+%__make %{?_smp_mflags}
 
 %install
 %make_install
