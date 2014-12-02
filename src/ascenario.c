@@ -441,7 +441,7 @@ static void seq_list_append(struct snd_scenario *scn,
 
 static int parse_sequences(struct snd_scenario *scn, FILE *f, int position)
 {
-	char buf[MAX_BUF], *tbuf, *control_value;
+	char buf[MAX_BUF], *tbuf, *control_value, *control_name;
 	int control_len, i, j;
 	struct sequence_element *curr;
 
@@ -467,7 +467,8 @@ static int parse_sequences(struct snd_scenario *scn, FILE *f, int position)
 		bzero(curr->control, sizeof(struct control_settings));
 
 		if (strncmp(tbuf, "kcontrol", 8) == 0) {
-			strncpy(curr->control->name, get_control_name(tbuf + 8), MAX_NAME);
+                        control_name = get_control_name(tbuf + 8);
+			strncpy(curr->control->name, control_name, MAX_NAME);
 			control_len = strlen(curr->control->name);
 			/* 11 = 8 from kcontrol + 2 quotes + 1 blank */
 			control_value = get_string(tbuf + 11 + control_len);
@@ -493,7 +494,10 @@ static int parse_sequences(struct snd_scenario *scn, FILE *f, int position)
 					seq_list_append(scn, curr, position);
 				}
 			}
-
+                        if(control_name)
+                                free(control_name);
+                        if(control_value)
+                                free(control_value);
 			continue;
 		}
 
