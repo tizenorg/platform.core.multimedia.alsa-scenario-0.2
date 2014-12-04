@@ -164,11 +164,10 @@ int main(int argc, char *argv[])
 int main(int argc, char *argv[])
 {
 	struct snd_scenario *scn;
-	int num, i, op = 0, err, ret = 0;
+	int num, j, op = 0, err, ret = 0;
 	const char **list;
 	char card[20];
-        int j;
-
+       
      for(j = 0 ; j < 100; j++ ) {
 	/* open library */
 	scn = snd_scenario_open("default");
