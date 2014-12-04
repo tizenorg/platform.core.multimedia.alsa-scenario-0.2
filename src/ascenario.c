@@ -512,7 +512,7 @@ static int parse_sequences(struct snd_scenario *scn, FILE *f, int position)
 			continue;
 		}
 	}
-
+free(control_value);
 	return 0;
 }
 
@@ -1012,7 +1012,7 @@ static int import_scenario_files(struct snd_scenario *scn)
 /* free all resorces */
 static void free_scn(struct snd_scenario *scn)
 {
-     int i, count;
+     int i;
      struct scenario_info *info = NULL;
      struct sequence_element *seq = NULL;
      struct control_setting *control = NULL;
@@ -1084,7 +1084,7 @@ EXPORT_API
 struct snd_scenario *snd_scenario_open(const char *card_name)
 {
 	struct snd_scenario *scn;
-	int err, i;
+    int err;
 
 	/* TODO: locking and
 	 * check if card_name scn is already loaded,
